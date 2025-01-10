@@ -1,11 +1,39 @@
 import styles from "../app/page.module.css";
+import { useState } from "react";
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    subject: "",
+    age: "",
+    description: "",
+  });
+
+  function handleTextChange(event) {
+    setFormData({
+      ...formData,
+      description: event.target.value,
+    });
+  }
+
+  function handleGradeChange(event) {
+    setFormData({
+      ...formData,
+      age: event.target.value,
+    });
+  }
+
+  function handleSubjectChange(event) {
+    setFormData({
+      ...formData,
+      subject: event.target.value,
+    });
+  }
+
   return (
     <div className={styles.page}>
       <form>
         <label htmlFor="select-subject">Subject:</label>
-        <select id="select-subject" required>
+        <select id="select-subject" onSelect={handleSubjectChange} required>
           <option value="">--Please select a subject--</option>
           <option value="">Writing</option>
           <option value="">Mathematics</option>
@@ -15,7 +43,7 @@ export default function Home() {
         </select>
 
         <label htmlFor="select-age">Grade level:</label>
-        <select id="select-age" required>
+        <select id="select-age" onSelect={handleGradeChange} required>
           <option value="">--Please select a target grade level--</option>
           <option value="">Preschool</option>
           <option value="">Kindergarten</option>
@@ -34,7 +62,14 @@ export default function Home() {
         </select>
 
         <label htmlFor="input-details">Describe your lesson plan:</label>
-        <textarea id="input-details" rows="5" cols="50" required />
+        <input
+          type="text"
+          id="input-details"
+          rows="5"
+          cols="50"
+          onChange={handleTextChange}
+          required
+        />
 
         <button type="submit">Submit</button>
       </form>
