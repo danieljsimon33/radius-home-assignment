@@ -1,5 +1,7 @@
-import styles from "../app/page.module.css";
 import { useState } from "react";
+
+import styles from "../app/page.module.css";
+import { fetchLLMData } from "@/app/llm-functions";
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -29,36 +31,42 @@ export default function Home() {
     });
   }
 
+  function handleOnSubmit(e) {
+    e.preventDefault();
+
+    fetchLLMData(formData.subject, formData.age, formData.description);
+  }
+
   return (
     <div className={styles.page}>
-      <form>
+      <form onSubmit={() => handleOnSubmit}>
         <label htmlFor="select-subject">Subject:</label>
         <select id="select-subject" onSelect={handleSubjectChange} required>
           <option value="">--Please select a subject--</option>
-          <option value="">Writing</option>
-          <option value="">Mathematics</option>
-          <option value="">Biology</option>
-          <option value="">Chemistry</option>
-          <option value="">Physics</option>
+          <option value="Writing">Writing</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Biology">Biology</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Physics">Physics</option>
         </select>
 
         <label htmlFor="select-age">Grade level:</label>
         <select id="select-age" onSelect={handleGradeChange} required>
           <option value="">--Please select a target grade level--</option>
-          <option value="">Preschool</option>
-          <option value="">Kindergarten</option>
-          <option value="">1st Grade</option>
-          <option value="">2nd Grade</option>
-          <option value="">3rd Grade</option>
-          <option value="">4th Grade</option>
-          <option value="">5th Grade</option>
-          <option value="">6th Grade</option>
-          <option value="">7th Grade</option>
-          <option value="">8th Grade</option>
-          <option value="">9th Grade</option>
-          <option value="">10th Grade</option>
-          <option value="">11th Grade</option>
-          <option value="">12th Grade</option>
+          <option value="Preschool">Preschool</option>
+          <option value="Kindergarten">Kindergarten</option>
+          <option value="1st Grade">1st Grade</option>
+          <option value="2nd Grade">2nd Grade</option>
+          <option value="3rd Grade">3rd Grade</option>
+          <option value="4th Grade">4th Grade</option>
+          <option value="5th Grade">5th Grade</option>
+          <option value="6th Grade">6th Grade</option>
+          <option value="7th Grade">7th Grade</option>
+          <option value="8th Grade">8th Grade</option>
+          <option value="9th Grade">9th Grade</option>
+          <option value="10th Grade">10th Grade</option>
+          <option value="11th Grade">11th Grade</option>
+          <option value="12th Grade">12th Grade</option>
         </select>
 
         <label htmlFor="input-details">Describe your lesson plan:</label>
@@ -76,6 +84,3 @@ export default function Home() {
     </div>
   );
 }
-/* 
-- consider adding options for college, etc.
-*/

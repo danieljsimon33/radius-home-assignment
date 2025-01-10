@@ -1,4 +1,9 @@
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
+
 export async function fetchLLMData(subject, age, description) {
+  const router = useRouter();
+
   const response = await fetch(
     "https://openrouter.ai/api/v1/chat/completions",
     {
@@ -21,4 +26,19 @@ export async function fetchLLMData(subject, age, description) {
       }),
     }
   );
+
+  if (!response.ok) {
+    return;
+  }
+
+  const newUuid = uuidv4();
+
+  const responseData = await response.json();
+
+  localStorage.setItem(newUuid, responseData.choices[0].message.content);
+
+  router.push(`/lesson/${newUuid}`);
+
+  //put data into local storage
+  //redirect to the next page
 }
