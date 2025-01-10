@@ -5,7 +5,7 @@ export default function Home() {
   const [formData, setFormData] = useState({
     subject: "",
     age: "",
-    description: "",
+    description: "An introduction to this subject, 45 minute class.",
   });
 
   function handleTextChange(event) {
